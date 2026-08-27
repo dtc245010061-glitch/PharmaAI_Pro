@@ -1,0 +1,93 @@
+/* ==========================================
+   1. IMPORT FONT CHỮ HIỆN ĐẠI (GOOGLE FONTS)
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ==========================================
+   2. TÍCH HỢP TAILWIND CSS DIRECTIVES
+   ========================================== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================
+   3. CẤU HÌNH THỂ BASE TOÀN CỤC
+   (Chứa các ghi đè phần tử HTML mặc định)
+   ========================================== */
+@layer base {
+  html {
+    /* Đặt Inter làm font mặc định cho toàn hệ thống */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  body {
+    /* Nền xám nhạt, chữ màu slate, bật chế độ khử răng cưa cho chữ sắc nét */
+    @apply bg-gray-50 text-slate-800 antialiased;
+  }
+
+  /* --- TÙY CHỈNH THANH CUỘN (SCROLLBAR) --- */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full transition-colors;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+}
+
+/* ==========================================
+   4. LỚP TIỆN ÍCH TÙY CHỈNH (UTILITIES)
+   (Cho phép Tailwind quét, hỗ trợ responsive và hover)
+   ========================================== */
+@layer utilities {
+  /* Class dùng để ẩn thanh cuộn nhưng vẫn cho phép vuốt/cuộn nội dung */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none; /* Hỗ trợ IE & Edge */
+    scrollbar-width: none; /* Hỗ trợ Firefox */
+  }
+
+  /* --- HIỆU ỨNG ANIMATIONS TÙY CHỈNH --- */
+  
+  /* 1. Hiệu ứng trượt và rõ dần (Dùng cho Modal popup) */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+
+  /* 2. Hiệu ứng nháy sáng nhẹ (Dùng cho các cảnh báo, loading) */
+  @keyframes pulseSoft {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  .animate-pulse-soft {
+    animation: pulseSoft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
